@@ -41,3 +41,47 @@ add_action( 'plugins_loaded', 'wsp_cf_loaded' );
 
 
 require_once WSP_PLUGIN_PATH . 'assets/assets.php';
+require_once WSP_PLUGIN_PATH . 'components/components.php';
+require_once WSP_PLUGIN_PATH . 'wsp-options.php';
+
+/**
+ * Menambahkan tombol berbagi ke akhir konten post pada halaman single.
+ *
+ * Fungsi ini mengaitkan sebuah elemen HTML ke bagian akhir konten post
+ * ketika ditampilkan di halaman single post. Hal ini dilakukan dengan menggunakan
+ * filter 'the_content' yang disediakan oleh WordPress.
+ *
+ * @package wsp
+ * @since 1.0.0
+ * @param string $content Konten asli dari post.
+ * @return string Konten yang telah dimodifikasi dengan tombol berbagi.
+ */
+function mm_append_share_button( $content ) {
+	if ( is_singular() ) {
+		$share_button = '<div class="wsp-share-btn">Share</div>';
+		$content     .= $share_button;
+	}
+	return $content;
+}
+add_filter( 'the_content', 'mm_append_share_button' );
+
+/**
+ * Experimental
+ *
+ * @package wsp
+ * @since 1.0.0
+ * @param string $content Konten asli dari post.
+ * @return string Konten yang telah dimodifikasi dengan tombol berbagi.
+ */
+function mm_replace_p_with_span( $content ) {
+
+	// Menghitung jumlah tag <p> dalam konten.
+	$p_count = substr_count( $content, '<p>' );
+
+	if ( is_singular() ) {
+		$share_button = '<div class="wsp-share-btn">' . $p_count . '</div>';
+		$content     .= $share_button;
+	}
+	return $content;
+}
+add_filter( 'the_content', 'mm_replace_p_with_span' );
