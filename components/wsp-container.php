@@ -19,7 +19,11 @@ function wsp_container() {
 			<small class="wsp-text animate__animated">Pilih platform yang ingin Anda bagikan:</small>
 			<div class="wsp-close-btn">Cancel</div>
 				<?php
+				$wps_size = carbon_get_theme_option( 'wps_size' );
+				echo '<ul class="animate__animated wsp-list wps-is-' . esc_html( $wps_size ) . '">';
 				wsp_load_platforms();
+				wsp_custom_platforms();
+				echo '</ul>';
 				?>
 		</div>
 	</div>
@@ -72,7 +76,7 @@ function wsp_load_platforms() {
 
 	$wps_platform = carbon_get_theme_option( 'wps_platform' );
 	if ( ! empty( $wps_platform ) ) {
-		echo '<ul class="animate__animated wsp-list wps-is-' . esc_html( $wps_size ) . '">';
+
 		foreach ( $wps_platform as $platform ) {
 			if ( 'copy' === $platform ) {
 				$icon_class = 'fa-regular fa-clipboard';
@@ -83,8 +87,35 @@ function wsp_load_platforms() {
 			}
 			echo '<li class="platform-item pf-' . esc_html( $platform ) . ' wps-size-' . esc_html( $wps_size ) . '"><a class="' . esc_html( $platform ) . '" href="' . esc_html( wsp_link_share()[ $platform ] ) . '' . esc_html( $post_url ) . '"><i class="' . esc_html( $icon_class ) . '"></i></a></li>';
 		}
-		echo '</ul>';
 	} else {
 		echo '<p>No platform selected</p>';
+	}
+}
+
+
+/**
+ * Custom Platforms
+ */
+function wsp_custom_platforms() {
+	$wsp_use_custom_platform = carbon_get_theme_option( 'wsp_use_custom_platform' );
+	$wps_size                = carbon_get_theme_option( 'wps_size' );
+	if ( is_singular() ) {
+		$post_title = str_replace( ' ', '%20', get_the_title() );
+		$post_url   = rawurldecode( get_permalink() );
+	}
+	if ( $wsp_use_custom_platform ) {
+		$cps = carbon_get_theme_option( 'wsp_custom_platform' );
+		if ( $cps ) {
+			foreach ( $cps as $cp ) {
+				$cps_name       = $cp['wsp_cp_name'];
+				$cps_prefix     = $cp['wsp_cp_prefix'];
+				$cps_icon       = $cp['wsp_cp_icon'];
+				$cps_bg_color   = $cp['wsp_cp_bg_color'];
+				$cps_text_color = $cp['wsp_cp_text_color'];
+				?>
+				<li style="background-color: <?php echo esc_html( $cps_bg_color ); ?>;" class="platform-item pf-<?php echo esc_html( $cps_name ); ?> wps-size-<?php echo esc_html( $wps_size ); ?>"><a style="color:<?php echo esc_html( $cps_text_color ); ?>;" class="<?php echo esc_html( $cps_name ); ?>" href="<?php echo esc_html( $cps_prefix ) . '' . esc_html( $post_url ); ?>"><i class="<?php echo esc_html( $cps_icon ); ?>"></i></a></li>
+				<?php
+			}
+		}
 	}
 }
