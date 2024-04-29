@@ -11,6 +11,19 @@
 
 defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
 
+/**
+ * Check if the current environment is development mode or on production
+ * development mode is when the server is localhost
+ * return true if the server is localhost
+ */
+function mm_is_devmode() {
+	if ( isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], array( '127.0.0.1', '::1' ), true ) ) {
+		return true;
+	}
+	return false;
+}
+
+
 // Define Plugin Path.
 define( 'WSP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
