@@ -33,6 +33,17 @@ function wsp_load_fields() {
 			)
 			->set_default_value( 'inherit' ),
 
+			// location trigger.
+			Field::make( 'select', 'wps_location', 'Location' )
+			->add_options(
+				array(
+					'before' => 'Before Content',
+					'after'  => 'After Content',
+					'both'   => 'Both',
+				)
+			)
+			->set_default_value( 'after' ),
+
 			// platforms.
 			Field::make( 'multiselect', 'wps_platform', 'Select Platforms' )
 			->set_options(

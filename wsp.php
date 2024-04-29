@@ -58,31 +58,21 @@ require_once WSP_PLUGIN_PATH . 'wsp-options.php';
  */
 function mm_append_share_button( $content ) {
 	if ( is_singular() ) {
-		$share_button = '<div class="wsp-share-btn">Share</div>';
-		$content     .= $share_button;
+
+		$wps_location = carbon_get_theme_option( 'wps_location' );
+
+		if ( 'after' === $wps_location ) {
+			$share_button = '<div class="wsp-share-btn">Share</div>';
+			$content     .= $share_button;
+		} elseif ( 'before' === $wps_location ) {
+			$share_button = '<span class="wsp-share-btn">Share</span>';
+			$content      = $share_button . $content;
+		} elseif ( 'both' === $wps_location ) {
+			$share_button = '<div class="wsp-share-btn">Share</div>' . $content . '<div class="wsp-share-btn">Share</div>';
+			$content     .= $share_button;
+		}
 	}
+
 	return $content;
 }
 add_filter( 'the_content', 'mm_append_share_button' );
-
-/**
- * Experimental
- *
- * @package wsp
- * @since 1.0.0
- * @param string $content Konten asli dari post.
- * @return string Konten yang telah dimodifikasi dengan tombol berbagi.
- */
-function mm_replace_p_with_span( $content ) {
-
-	// Menghitung jumlah tag < p > dalam konten.
-	$p_count = substr_count( $content, '<p>' );
-
-	if ( is_singular() ) {
-		$share_button = '<div class="wsp-share-btn">' . $p_count . '</div>';
-		$content     .= $share_button;
-	}
-
-	return $content;
-}
-add_filter( 'the_content', 'mm_replace_p_with_span' );

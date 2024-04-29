@@ -2,8 +2,13 @@
   cursor: pointer;
   background-color: darkred;
   color: white;
-  width: max-content;
+  width: max-content !important;
   padding: 4px 1rem;
+  margin-top: 1rem;
+  margin-right: auto !important;
+  margin-bottom: 1rem;
+  margin-left: unset !important;
+  display: block;
 }
 
 #wsp-pr {
@@ -13,12 +18,7 @@
   top: 0;
   left: 0;
   z-index: 7777;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Membuat latar belakang transparan untuk efek blur */
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   box-sizing: border-box;
   transform: scale(1);
