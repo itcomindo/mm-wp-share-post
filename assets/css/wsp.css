@@ -13,12 +13,18 @@
   top: 0;
   left: 0;
   z-index: 7777;
-  background-color: black;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Membuat latar belakang transparan untuk efek blur */
   color: white;
   box-sizing: border-box;
   transform: scale(1);
   visibility: visible;
   transition: 0.3s linear all;
+  backdrop-filter: blur(10px); /* Menambahkan efek blur */
 }
 
 #wsp-pr.hide {
@@ -46,6 +52,13 @@
   background-color: silver;
   padding: 1rem;
   border-radius: 10px;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  text-align: center;
+  gap: 1rem;
+  overflow: hidden;
 }
 
 .wsp-close-btn {
@@ -69,6 +82,14 @@
 ul.wsp-list li a {
   text-decoration: none !important;
 }
+
+small.wsp-text {
+  visibility: hidden;
+}
+small.wsp-text.show {
+  visibility: visible;
+}
+
 ul.wsp-list {
   list-style: none;
   margin: 0;
@@ -79,18 +100,171 @@ ul.wsp-list {
   margin-inline-end: 0;
   padding-inline-start: 0;
   width: 100%;
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap; */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
   gap: 1rem;
+}
+
+ul.wsp-list.wps-is-small {
+  grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+}
+ul.wsp-list.wps-is-inherit {
+  grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
+}
+ul.wsp-list.wps-is-large {
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+}
+
+ul.wsp-list.wps-is-medium {
+  grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
 }
 
 ul.wsp-list li {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  aspect-ratio: 1/1;
+  padding: 6px;
+}
+ul.wsp-list li a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+ul.wsp-list li.wps-size-small {
+  font-size: 0.85rem;
+}
+ul.wsp-list li.wps-size-inherit {
+  font-size: inherit;
+}
+
+ul.wsp-list li.wps-size-medium {
+  font-size: 1.25rem;
+}
+
+ul.wsp-list li.wps-size-large {
+  font-size: 1.5rem;
+}
+
+/*=========================Facebook=========================*/
+ul.wsp-list li.pf-facebook {
+  background-color: #1877f2;
+  color: white;
+}
+
+ul.wsp-list li.pf-facebook a.facebook {
+  color: white;
+}
+
+/*=========================Linkedin=========================*/
+ul.wsp-list li.pf-linkedin {
+  background-color: #0a66c2;
+  color: white;
+}
+
+ul.wsp-list li.pf-linkedin a.linkedin {
+  color: white;
+}
+
+/*=========================Twitter=========================*/
+ul.wsp-list li.pf-twitter {
+  background-color: #1da1f2;
+  color: white;
+}
+
+ul.wsp-list li.pf-twitter a.twitter {
+  color: white;
+}
+
+/*=========================Pinterest=========================*/
+ul.wsp-list li.pf-pinterest {
+  background-color: #bd081c;
+  color: white;
+}
+
+ul.wsp-list li.pf-pinterest a.pinterest {
+  color: white;
+}
+
+/*=========================Whatsapp=========================*/
+ul.wsp-list li.pf-whatsapp {
+  background-color: #25d366;
+  color: white;
+}
+ul.wsp-list li a.whatsapp {
+  color: white;
+}
+
+/*=========================Thumblr=========================*/
+ul.wsp-list li.pf-tumblr {
+  background-color: #35465d;
+  color: white;
+}
+
+ul.wsp-list li.pf-tumblr a.tumblr {
+  color: white;
+}
+
+/*=========================Reddit=========================*/
+ul.wsp-list li.pf-reddit {
+  background-color: #ff4500;
+  color: white;
+}
+
+ul.wsp-list li.pf-reddit a.reddit {
+  color: white;
+}
+
+/*=========================Telegram=========================*/
+ul.wsp-list li.pf-telegram {
+  background-color: #0088cc;
+  color: white;
+}
+
+ul.wsp-list li.pf-telegram a.telegram {
+  color: white;
+}
+
+/*=========================vk=========================*/
+ul.wsp-list li.pf-vk {
+  background-color: #45668e;
+  color: white;
+}
+
+ul.wsp-list li.pf-vk a.vk {
+  color: white;
+}
+
+/*=========================xing=========================*/
+ul.wsp-list li.pf-xing {
+  background-color: #026466;
+  color: white;
+}
+
+ul.wsp-list li.pf-xing a.xing {
+  color: white;
+}
+
+/*=========================email=========================*/
+ul.wsp-list li.pf-email {
+  background-color: #ff0000;
+  color: white;
+}
+
+ul.wsp-list li.pf-email a.email {
+  color: white;
+}
+
+/*=========================Copy=========================*/
+ul.wsp-list li.pf-copy {
+  background-color: #000000;
+  color: white;
+}
+
+ul.wsp-list li.pf-copy a.copy {
+  color: white;
 }

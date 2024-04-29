@@ -75,13 +75,14 @@ add_filter( 'the_content', 'mm_append_share_button' );
  */
 function mm_replace_p_with_span( $content ) {
 
-	// Menghitung jumlah tag <p> dalam konten.
+	// Menghitung jumlah tag < p > dalam konten.
 	$p_count = substr_count( $content, '<p>' );
 
 	if ( is_singular() ) {
 		$share_button = '<div class="wsp-share-btn">' . $p_count . '</div>';
 		$content     .= $share_button;
 	}
+
 	return $content;
 }
 add_filter( 'the_content', 'mm_replace_p_with_span' );
