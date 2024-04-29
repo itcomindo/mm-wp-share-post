@@ -33,6 +33,16 @@ function wsp_load_fields() {
 			)
 			->set_default_value( 'inherit' ),
 
+			// how to display, auto or shortcode.
+			Field::make( 'select', 'wps_display', 'Display' )
+			->add_options(
+				array(
+					'auto'      => 'Auto',
+					'shortcode' => 'Shortcode',
+				)
+			)
+			->set_default_value( 'auto' ),
+
 			// location trigger.
 			Field::make( 'select', 'wps_location', 'Location' )
 			->add_options(
@@ -42,7 +52,65 @@ function wsp_load_fields() {
 					'both'   => 'Both',
 				)
 			)
+			->set_conditional_logic(
+				array(
+					array(
+						'field'    => 'wps_display',
+						'operator' => '==',
+						'value'    => 'auto',
+					),
+				)
+			)
 			->set_default_value( 'after' ),
+
+			// html field with content [wsp_trigger] if shortcode is selected.
+			Field::make( 'html', 'wps_shortcode', 'Shortcode' )
+			->set_conditional_logic(
+				array(
+					array(
+						'field'    => 'wps_display',
+						'operator' => '==',
+						'value'    => 'shortcode',
+					),
+				)
+			)
+			->set_html(
+				'<p>Gunakan shortcode <code>[wsp_trigger]</code> untuk menampilkan tombol berbagi.</p>'
+			),
+
+			/**
+			 * ###################################
+			 * Styling Options Start
+			 * ###################################
+			 */
+
+			Field::make( 'separator', 'stylmsepmsp', 'Styling Options' )
+			->set_classes( 'wspsep' ),
+
+			// Share button text.
+			Field::make( 'text', 'wps_trigger_text', 'Share Button Text' )
+			->set_default_value( 'Share' )
+			->set_required( true ),
+
+			// Share button background color.
+			Field::make( 'color', 'wps_trigger_bg', 'Background Color' )
+			->set_default_value( '#000000' )
+			->set_required( true ),
+
+			// Share button text color.
+			Field::make( 'color', 'wps_trigger_text_color', 'Text Color' )
+			->set_default_value( '#ffffff' )
+			->set_required( true ),
+
+			/**
+			 * ###################################
+			 * Platforms Options Start
+			 * ###################################
+			 */
+
+			// Platforms start.
+			Field::make( 'separator', 'platformsepmsp', 'Platforms Options' )
+			->set_classes( 'wspsep' ),
 
 			// platforms.
 			Field::make( 'multiselect', 'wps_platform', 'Select Platforms' )
@@ -64,7 +132,6 @@ function wsp_load_fields() {
 			),
 
 			// custom platforms start.
-
 			Field::make( 'checkbox', 'wsp_use_custom_platform', 'Buat Platform Sendiri' )
 			->set_option_value( 'yes' )
 			->set_default_value( false )

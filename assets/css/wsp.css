@@ -9,6 +9,7 @@
   margin-bottom: 1rem;
   margin-left: unset !important;
   display: block;
+  clip-path: polygon(5% 0, 100% 0%, 95% 100%, 0% 100%);
 }
 
 #wsp-pr {

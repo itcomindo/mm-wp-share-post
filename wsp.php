@@ -58,21 +58,76 @@ require_once WSP_PLUGIN_PATH . 'wsp-options.php';
  */
 function mm_append_share_button( $content ) {
 	if ( is_singular() ) {
-
 		$wps_location = carbon_get_theme_option( 'wps_location' );
 
 		if ( 'after' === $wps_location ) {
-			$share_button = '<div class="wsp-share-btn">Share</div>';
+			$share_button = mm_get_button_trigger();
 			$content     .= $share_button;
 		} elseif ( 'before' === $wps_location ) {
-			$share_button = '<span class="wsp-share-btn">Share</span>';
+			$share_button = mm_get_button_trigger();
 			$content      = $share_button . $content;
 		} elseif ( 'both' === $wps_location ) {
-			$share_button = '<div class="wsp-share-btn">Share</div>' . $content . '<div class="wsp-share-btn">Share</div>';
-			$content     .= $share_button;
+			$share_button_before = mm_get_button_trigger();
+			$share_button_after  = mm_get_button_trigger();
+			$content             = $share_button_before . $content . $share_button_after;
 		}
 	}
 
 	return $content;
 }
-add_filter( 'the_content', 'mm_append_share_button' );
+
+
+
+/**
+ * Shortcode to show trigger button for share buttons.
+ *
+ * This function creates a shortcode that can be used to display a trigger button
+ * for the share buttons. The shortcode can be used in the content of a post or page
+ * to display the trigger button wherever it is placed.
+ */
+function mm_wps_trigger_shortcode() {
+	$share_button = mm_get_button_trigger();
+	return $share_button;
+}
+
+
+/**
+ * Display WPS Trigger
+ */
+function mm_wps_trigger() {
+	if ( is_singular() ) {
+		$wps_display = carbon_get_theme_option( 'wps_display' );
+		if ( 'auto' === $wps_display ) {
+			add_filter( 'the_content', 'mm_append_share_button' );
+		} else {
+			add_shortcode( 'wsp_trigger', 'mm_wps_trigger_shortcode' );
+		}
+	} else {
+		return;
+	}
+}
+add_action( 'wp', 'mm_wps_trigger' );
+
+
+/**
+ * Get Trigger Text
+ */
+function mm_get_trigger_text() {
+	$wps_trigger_text = carbon_get_theme_option( 'wps_trigger_text' );
+	if ( $wps_trigger_text ) {
+		return $wps_trigger_text;
+	} else {
+		return 'Share';
+	}
+}
+
+
+/**
+ * Get The button trigger
+ */
+function mm_get_button_trigger() {
+	$wpst_bg      = carbon_get_theme_option( 'wps_trigger_bg' );
+	$wpst_color   = carbon_get_theme_option( 'wps_trigger_text_color' );
+	$share_button = '<div class="wsp-share-btn" style="background-color:' . $wpst_bg . '; color:' . $wpst_color . '">' . esc_html( mm_get_trigger_text() ) . '</div>';
+	return $share_button;
+}
