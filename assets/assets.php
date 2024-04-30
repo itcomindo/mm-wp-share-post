@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
  */
 function wsp_load_assets() {
 
-	$suffix = mm_is_devmode() ? '' : '.min';
+	$suffix = wsp_is_devmode() ? '' : '.min';
 
 	wp_enqueue_style( 'animate-style', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), '4.1.1', 'all' );
 

@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
  * development mode is when the server is localhost
  * return true if the server is localhost
  */
-function mm_is_devmode() {
+function wsp_is_devmode() {
 	if ( isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], array( '127.0.0.1', '::1' ), true ) ) {
 		return true;
 	}
@@ -38,6 +38,8 @@ function wsp_call_carbon_fields() {
 	if ( ! class_exists( '\Carbon_Fields\Carbon_Fields' ) ) {
 		require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 		\Carbon_Fields\Carbon_Fields::boot();
+	} else {
+		return;
 	}
 }
 
@@ -47,6 +49,8 @@ function wsp_call_carbon_fields() {
 function wsp_cf_loaded() {
 	if ( ! function_exists( 'carbon_fields_boot_plugin' ) ) {
 		wsp_call_carbon_fields();
+	} else {
+		return;
 	}
 }
 add_action( 'plugins_loaded', 'wsp_cf_loaded' );
